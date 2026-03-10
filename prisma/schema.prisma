@@ -28,6 +28,7 @@ model User {
   group Group[]
   user_group User_Group[]
   user_answer User_Answer[]
+  comment Comment[]
 }
 
 model Survey {
@@ -42,6 +43,8 @@ model Survey {
   category_id Int
 
   survey_answer Survey_Answer[]
+  comment Comment []
+  tag Tag[]
 }
 
 model Category{
@@ -110,4 +113,16 @@ model Group_Answer{
 
 model Comment {
   id    Int   @id @default(autoincrement())
+  user User @relation(fields: [user_id], references: [id])
+  user_id Int
+  text String
+  survey Survey @relation(fields: [survey_id], references: [id])
+  survey_id Int
+}
+
+model Tag{
+  id Int @id @default(autoincrement())
+  text String
+  survey Survey @relation(fields: [survey_id], references: [id])
+  survey_id Int
 }
